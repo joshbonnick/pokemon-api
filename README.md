@@ -31,15 +31,11 @@ Before you begin, ensure you have the following installed on your machine:
 
 3. **Copy .env Example**
 
-   Copy the example `.env` file to create your own configuration file:
-
     ```bash
     cp .env.example .env
     ```
 
 4. **Generate Application Key**
-
-   Generate a new application key:
 
     ```bash
     ./vendor/bin/sail artisan key:generate
@@ -47,15 +43,11 @@ Before you begin, ensure you have the following installed on your machine:
 
 5. **Start the Development Environment**
 
-   Start the Sail development environment:
-
     ```bash
     ./vendor/bin/sail up -d
     ```
 
 6. **Run Database Migrations**
-
-   Run the database migrations to set up the database schema:
 
     ```bash
     ./vendor/bin/sail artisan migrate
@@ -64,3 +56,11 @@ Before you begin, ensure you have the following installed on your machine:
 7. **Access the Application**
 
    You can now access the application at [http://localhost](http://localhost).
+
+## Importing Pokemon
+
+    This process takes around 90 seconds.
+
+```bash
+    sail artisan pokemon:import
+```
