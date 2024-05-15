@@ -31,7 +31,7 @@ class ImportProcessor
 
     /**
      * @param  array<string, mixed>  $held_items
-     * @return Collection<int, PokemonHeldItem>
+     * @return Collection<string, PokemonHeldItem>
      */
     protected function processHeldItems(array $held_items): Collection
     {
