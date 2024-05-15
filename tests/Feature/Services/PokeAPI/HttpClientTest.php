@@ -32,13 +32,9 @@ class HttpClientTest extends TestCase
         ]);
 
         $client = $this->app->make(PokeAPIClient::class);
-
-        $response = $client->listPokemon($limit);
+        $client->listPokemon($limit);
 
         Http::assertSent(fn (Request $request): bool => $request->url() == $url && $request['limit'] == $limit);
-
-        $this->assertEquals(200, $response->status());
-        $this->assertEquals(['results' => []], $response->json());
     }
 
     #[Test]

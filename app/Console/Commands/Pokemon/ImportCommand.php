@@ -19,7 +19,7 @@ class ImportCommand extends Command
 
     public function handle(): int
     {
-        ImportPokemon::dispatch();
+        ImportPokemon::dispatch(151);
 
         return static::SUCCESS;
     }

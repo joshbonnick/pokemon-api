@@ -14,13 +14,13 @@ class ImportPokemon implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function __construct()
+    public function __construct(protected int $limit)
     {
     }
 
     public function handle(PokeAPIClient $client, ImportProcessor $import_processor): void
     {
-        $list = $client->listPokemon(151);
+        $list = $client->listPokemon($this->limit);
 
         $pokemon = collect($list['results'])->map($import_processor->process(...));
     }
