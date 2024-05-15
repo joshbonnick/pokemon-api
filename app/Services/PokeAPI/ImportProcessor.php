@@ -54,7 +54,7 @@ class ImportProcessor
                 ['name' => $ability['ability']['name']]
             );
 
-            return [$ability_model->value('id'), ['is_hidden' => $ability['is_hidden'], 'slot' => $ability['slot']]];
+            return [$ability_model->value('id') => ['is_hidden' => $ability['is_hidden'], 'slot' => $ability['slot']]];
         });
     }
 
