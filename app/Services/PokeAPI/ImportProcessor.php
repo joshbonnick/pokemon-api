@@ -43,7 +43,7 @@ class ImportProcessor
     }
 
     /**
-     * @param  array<string, mixed>  $abilities
+     * @param  array<int, array{ability: array{name: string}, is_hidden: bool, slot: int}>  $abilities
      * @return Collection<int, array{is_hidden: bool, slot: int}>
      */
     protected function processAbilities(array $abilities): Collection
@@ -54,7 +54,7 @@ class ImportProcessor
                 ['name' => $ability['ability']['name']]
             );
 
-            return [$ability_model->value('id') => ['is_hidden' => $ability['is_hidden'], 'slot' => $ability['slot']]];
+            return [$ability_model->id => ['is_hidden' => (bool) $ability['is_hidden'], 'slot' => (int) $ability['slot']]];
         });
     }
 
