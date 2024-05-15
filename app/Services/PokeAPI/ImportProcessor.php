@@ -68,27 +68,32 @@ class ImportProcessor
             ->map(function (array $form) {
                 $form = Http::get($form['url'])->json();
 
-                return PokemonForm::query()
-                    ->updateOrCreate(
-                        ['pokeapi_id' => $form['id']],
-                        [
-                            'pokeapi_id' => $form['id'],
-                            'name' => $form['name'],
-                            'order' => $form['order'],
-                            'form_order' => $form['form_order'],
-                            'is_battle_only' => $form['is_battle_only'],
-                            'is_default' => $form['is_default'],
-                            'is_mega' => $form['is_mega'],
-                            'pokemon_form_sprite_id' => PokemonFormSprite::query()
-                                ->create([
-                                    'front_default' => $form['sprites']['front_default'],
-                                    'front_shiny' => $form['sprites']['front_shiny'],
-                                    'back_default' => $form['sprites']['back_default'],
-                                    'back_shiny' => $form['sprites']['back_shiny'],
-                                ])
-                                ->value('id'),
-                        ]
-                    );
+                return PokemonForm::query()->updateOrCreate(
+                    ['pokeapi_id' => $form['id']],
+                    [
+                        'pokeapi_id' => $form['id'],
+                        'name' => $form['name'],
+                        'order' => $form['order'],
+                        'form_order' => $form['form_order'],
+                        'is_battle_only' => $form['is_battle_only'],
+                        'is_default' => $form['is_default'],
+                        'is_mega' => $form['is_mega'],
+                        'pokemon_form_sprite_id' => $this->processSprite($form['sprites'])->id,
+                    ]
+                );
             });
+    }
+
+    /**
+     * @param  array{front_default: string, front_shiny: string, back_default: string, back_shiny: string}  $sprites
+     */
+    protected function processSprite(array $sprites): PokemonFormSprite
+    {
+        return PokemonFormSprite::query()->create([
+            'front_default' => $sprites['front_default'],
+            'front_shiny' => $sprites['front_shiny'],
+            'back_default' => $sprites['back_default'],
+            'back_shiny' => $sprites['back_shiny'],
+        ]);
     }
 }
