@@ -3,12 +3,14 @@
 namespace App\Jobs\Pokemon;
 
 use App\Services\PokeAPI\Contracts\PokeAPIClient;
+use App\Services\PokeAPI\Exceptions\NoResultsFoundException;
 use App\Services\PokeAPI\ImportProcessor;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Arr;
 
 class ImportPokemon implements ShouldQueue
 {
@@ -18,10 +20,17 @@ class ImportPokemon implements ShouldQueue
     {
     }
 
+    /**
+     * @throws NoResultsFoundException
+     */
     public function handle(PokeAPIClient $client, ImportProcessor $import_processor): void
     {
         $list = $client->listPokemon($this->limit);
 
-        $pokemon = collect($list['results'])->map($import_processor->process(...));
+        if (! Arr::exists($list, 'results')) {
+            throw new NoResultsFoundException();
+        }
+
+        collect($list['results'])->each($import_processor->process(...));
     }
 }

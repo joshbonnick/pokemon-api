@@ -3,6 +3,8 @@
 namespace Tests\Feature\Jobs\Pokemon;
 
 use App\Jobs\Pokemon\ImportPokemon;
+use App\Services\PokeAPI\Exceptions\NoResultsFoundException;
+use Cache;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
@@ -12,6 +14,27 @@ use Tests\TestCase;
 class ImportPokemonTest extends TestCase
 {
     use RefreshDatabase;
+
+    #[Test]
+    public function it_throws_exception_if_no_results(): void
+    {
+        Cache::flush();
+
+        $this->expectException(NoResultsFoundException::class);
+        $this->withoutExceptionHandling();
+
+        Http::preventStrayRequests();
+
+        $limit = fake()->randomNumber(1);
+        $base = config('pokeapi.base_url');
+        $url = "{$base}pokemon?limit=$limit";
+
+        Http::fake([
+            $url => Http::response(['::nothing::' => '::here::']),
+        ]);
+
+        ImportPokemon::dispatchSync(1);
+    }
 
     #[Test]
     public function it_imports_pokemon_from_api(): void
