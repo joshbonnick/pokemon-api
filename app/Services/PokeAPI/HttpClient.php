@@ -23,7 +23,7 @@ class HttpClient implements PokeAPIClient
         return Cache::remember(
             "pokeapi:list-pokemon:limit:$limit",
             now()->addHour(),
-            fn () => $this->request->get('pokemon', compact('limit'))->json()
+            fn () => $this->request->get('pokemon', ['limit' => $limit])->json()
         );
     }
 
