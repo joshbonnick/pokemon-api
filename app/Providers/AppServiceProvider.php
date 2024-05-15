@@ -1,7 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
+use App\Services\PokeAPI\Contracts\PokeAPIClient;
+use App\Services\PokeAPI\HttpClient;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,14 +16,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(
+            abstract: PokeAPIClient::class,
+            concrete: fn () => new HttpClient(
+                Http::baseUrl(config('pokeapi.base_url'))->timeout(15)->asJson()->acceptJson()
+            )
+        );
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
-        //
     }
 }
