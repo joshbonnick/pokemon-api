@@ -19,6 +19,7 @@ class Pokemon extends Model
     {
         return [
             'stats' => 'json',
+            'is_default' => 'bool',
         ];
     }
 
