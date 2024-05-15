@@ -31,7 +31,7 @@ class ImportProcessor
 
     /**
      * @param  array<string, mixed>  $held_items
-     * @return Collection<string, PokemonHeldItem>
+     * @return Collection<array-key, PokemonHeldItem>
      */
     protected function processHeldItems(array $held_items): Collection
     {
@@ -43,7 +43,7 @@ class ImportProcessor
 
     /**
      * @param  array<int, array{ability: array{name: string}, is_hidden: bool, slot: int}>  $abilities
-     * @return Collection<int, array{is_hidden: bool, slot: int}>
+     * @return Collection<array-key, array{is_hidden: bool, slot: int}>
      */
     protected function processAbilities(array $abilities): Collection
     {
