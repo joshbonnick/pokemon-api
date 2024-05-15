@@ -30,17 +30,19 @@ readonly class PokemonDto
 
     public function toModel(): Pokemon
     {
-        return Pokemon::query()->create([
-            'name' => $this->name,
-            'pokeapi_id' => $this->poke_api_id,
-            'base_experience' => $this->base_experience,
-            'height' => $this->height,
-            'weight' => $this->weight,
-            'cry' => $this->cry,
-            'stats' => $this->stats,
-            'is_default' => $this->is_default,
-            'order' => $this->order,
-        ]);
+        return Pokemon::query()->firstOrCreate(
+            ['pokeapi_id' => $this->poke_api_id],
+            [
+                'name' => $this->name,
+                'pokeapi_id' => $this->poke_api_id,
+                'base_experience' => $this->base_experience,
+                'height' => $this->height,
+                'weight' => $this->weight,
+                'cry' => $this->cry,
+                'stats' => $this->stats,
+                'is_default' => $this->is_default,
+                'order' => $this->order,
+            ]);
     }
 
     /**
