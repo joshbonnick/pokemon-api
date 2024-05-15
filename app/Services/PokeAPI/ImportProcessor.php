@@ -36,7 +36,7 @@ class ImportProcessor
     protected function processHeldItems(array $held_items): Collection
     {
         return collect($held_items)->map(
-            fn (array $held_item) => PokemonHeldItem::query()->updateOrCreate(
+            fn (array $held_item) => PokemonHeldItem::query()->firstOrCreate(
                 ['name' => $held_item['item']['name']],
                 ['name' => $held_item['item']['name']]
             ));
@@ -49,7 +49,7 @@ class ImportProcessor
     protected function processAbilities(array $abilities): Collection
     {
         return collect($abilities)->mapWithKeys(function (array $ability) {
-            $ability_model = PokemonAbility::query()->updateOrCreate(
+            $ability_model = PokemonAbility::query()->firstOrCreate(
                 ['name' => $ability['ability']['name']],
                 ['name' => $ability['ability']['name']]
             );
@@ -68,7 +68,7 @@ class ImportProcessor
             ->map(function (array $form) {
                 $form = Http::get($form['url'])->json();
 
-                return PokemonForm::query()->updateOrCreate(
+                return PokemonForm::query()->firstOrCreate(
                     ['pokeapi_id' => $form['id']],
                     [
                         'pokeapi_id' => $form['id'],
