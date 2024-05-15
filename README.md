@@ -59,7 +59,7 @@ Before you begin, ensure you have the following installed on your machine:
 
 ## Importing Pokemon
 
-    This process takes around 90 seconds.
+    This process takes around 90 seconds. Either have the queue set to sync or run queue:work
 
 ```bash
     sail artisan pokemon:import
