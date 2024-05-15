@@ -35,11 +35,10 @@ class ImportProcessor
      */
     protected function processHeldItems(array $held_items): Collection
     {
-        return collect($held_items)->map(
-            fn (array $held_item) => PokemonHeldItem::query()->firstOrCreate(
-                ['name' => $held_item['item']['name']],
-                ['name' => $held_item['item']['name']]
-            ));
+        return collect($held_items)->map(fn (array $held_item) => PokemonHeldItem::query()->firstOrCreate(
+            ['name' => $held_item['item']['name']],
+            ['name' => $held_item['item']['name']]
+        ));
     }
 
     /**
@@ -64,24 +63,23 @@ class ImportProcessor
      */
     protected function processForms(array $forms): Collection
     {
-        return collect($forms)
-            ->map(function (array $form) {
-                $form = Http::get($form['url'])->json();
+        return collect($forms)->map(function (array $form) {
+            $form = Http::get($form['url'])->json();
 
-                return PokemonForm::query()->firstOrCreate(
-                    ['pokeapi_id' => $form['id']],
-                    [
-                        'pokeapi_id' => $form['id'],
-                        'name' => $form['name'],
-                        'order' => $form['order'],
-                        'form_order' => $form['form_order'],
-                        'is_battle_only' => $form['is_battle_only'],
-                        'is_default' => $form['is_default'],
-                        'is_mega' => $form['is_mega'],
-                        'pokemon_form_sprite_id' => $this->processSprite($form['sprites'])->id,
-                    ]
-                );
-            });
+            return PokemonForm::query()->firstOrCreate(
+                ['pokeapi_id' => $form['id']],
+                [
+                    'pokeapi_id' => $form['id'],
+                    'name' => $form['name'],
+                    'order' => $form['order'],
+                    'form_order' => $form['form_order'],
+                    'is_battle_only' => $form['is_battle_only'],
+                    'is_default' => $form['is_default'],
+                    'is_mega' => $form['is_mega'],
+                    'pokemon_form_sprite_id' => $this->processSprite($form['sprites'])->id,
+                ]
+            );
+        });
     }
 
     /**
