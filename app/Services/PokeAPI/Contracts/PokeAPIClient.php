@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace App\Services\PokeAPI\Contracts;
 
-use Illuminate\Http\Client\Response;
-
 interface PokeAPIClient
 {
-    public function listPokemon(int $limit): Response;
+    /**
+     * @return array{count: int, next: string, previous: ?string, results: array<int, array{name: string, url: string}>}
+     */
+    public function listPokemon(int $limit): array;
 
-    public function pokemon(int $id): Response;
+    /**
+     * @return array<string, mixed>
+     */
+    public function pokemon(int $id): array;
 }

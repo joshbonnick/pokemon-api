@@ -16,7 +16,6 @@ class PokemonHeldItemFactory extends Factory
     public function definition(): array
     {
         return [
-            'pokeapi_id' => $this->faker->randomNumber(3),
             'name' => $this->faker->word,
         ];
     }

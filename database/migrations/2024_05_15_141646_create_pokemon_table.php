@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('height');
             $table->boolean('is_default');
+            $table->json('stats');
             $table->integer('order');
             $table->integer('weight');
             $table->string('cry');

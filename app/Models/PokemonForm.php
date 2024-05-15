@@ -11,6 +11,20 @@ class PokemonForm extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'is_default' => 'bool',
+            'is_battle_only' => 'bool',
+            'is_mega' => 'bool',
+        ];
+    }
+
     /**
      * @return BelongsToMany<Pokemon>
      */

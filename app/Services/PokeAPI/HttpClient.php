@@ -6,7 +6,6 @@ namespace App\Services\PokeAPI;
 
 use App\Services\PokeAPI\Contracts\PokeAPIClient;
 use Illuminate\Http\Client\PendingRequest;
-use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Cache;
 
 class HttpClient implements PokeAPIClient
@@ -16,21 +15,27 @@ class HttpClient implements PokeAPIClient
     ) {
     }
 
-    public function listPokemon(int $limit): Response
+    /**
+     * {@inheritDoc}
+     */
+    public function listPokemon(int $limit): array
     {
         return Cache::remember(
             "pokeapi:list-pokemon:limit:$limit",
             now()->addHour(),
-            fn (): Response => $this->request->get('pokemon', ['limit' => $limit])
+            fn () => $this->request->get('pokemon', ['limit' => $limit])->json()
         );
     }
 
-    public function pokemon(int $id): Response
+    /**
+     * {@inheritDoc}
+     */
+    public function pokemon(int $id): array
     {
         return Cache::remember(
             "pokeapi:pokemon:$id",
             now()->addHour(),
-            fn (): Response => $this->request->get("pokemon/$id")
+            fn () => $this->request->get("pokemon/$id")->json()
         );
     }
 }

@@ -10,12 +10,24 @@ class Pokemon extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'stats' => 'json',
+        ];
+    }
+
     /**
      * @return BelongsToMany<PokemonAbility>
      */
     public function abilities(): BelongsToMany
     {
-        return $this->belongsToMany(PokemonAbility::class);
+        return $this->belongsToMany(PokemonAbility::class)->withPivot('is_hidden', 'slot');
     }
 
     /**

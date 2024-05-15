@@ -13,9 +13,7 @@ return new class extends Migration
     {
         Schema::create('pokemon_abilities', function (Blueprint $table) {
             $table->id();
-            $table->integer('pokeapi_id');
             $table->string('name');
-            $table->boolean('is_main_series');
             $table->timestamps();
         });
     }

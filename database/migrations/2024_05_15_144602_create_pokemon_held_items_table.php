@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('pokemon_held_items', function (Blueprint $table) {
             $table->id();
-            $table->integer('pokeapi_id');
             $table->string('name');
             $table->timestamps();
         });
