@@ -27,7 +27,10 @@ class HttpClient implements PokeAPIClient
 
     public function pokemon(int $id): Response
     {
-        return Cache::remember("pokeapi:pokemon:$id", now()->addHour(),
-            fn (): Response => $this->request->get("pokemon/$id"));
+        return Cache::remember(
+            "pokeapi:pokemon:$id",
+            now()->addHour(),
+            fn (): Response => $this->request->get("pokemon/$id")
+        );
     }
 }
