@@ -25,6 +25,12 @@ class IndexController extends Controller
             });
         }
 
+        if ($validated->has('stat_sort')) {
+            $stat = $validated->input('stat_sort');
+
+            $pokemon_query->orderByRaw("CAST(stats->'$.{$stat}' AS unsigned) DESC");
+        }
+
         return PokemonResource::collection($pokemon_query->get());
     }
 }

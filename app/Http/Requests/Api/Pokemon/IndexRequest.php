@@ -2,8 +2,10 @@
 
 namespace App\Http\Requests\Api\Pokemon;
 
+use App\Enums\PokemonStats;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
 
 class IndexRequest extends FormRequest
 {
@@ -14,6 +16,7 @@ class IndexRequest extends FormRequest
     {
         return [
             's' => ['string'],
+            'stat_sort' => [new Enum(PokemonStats::class)],
         ];
     }
 }

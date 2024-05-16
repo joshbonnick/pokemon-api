@@ -4,19 +4,21 @@ import PikachuBanner from '@/Components/Pages/Home/PikachuBanner.vue'
 import PokemonCard from '@/Components/Pokemon/Card.vue'
 import Search from '@/Components/Search.vue'
 import Pagination from '@/Components/Pagination.vue'
-import { reactive, ref, watch } from 'vue'
+import { reactive, ref } from 'vue'
 import { useSearch } from '@/Composables/search.js'
+import Select from '@/Components/Select.vue'
 
 const search = ref('')
+const sortByStat = ref(false)
 
-watch(search, (value) => {
-    useSearch(value).then((result) => {
+const triggerSearch = () => {
+    useSearch({ s: search.value, stat_sort: sortByStat.value }).then((result) => {
         pokemon.data = result.data.data
         pokemonCount.value = pokemon.data.length
     })
-})
+}
 
-const props = defineProps({ pokemon: Object, pokemon_count: Number })
+const props = defineProps({ pokemon: Object, pokemon_count: Number, stats: Array })
 
 const pokemon = reactive(props.pokemon)
 const pokemonCount = ref(props.pokemon_count)
@@ -36,9 +38,11 @@ const pokemonCount = ref(props.pokemon_count)
             <h3 class="lg:pb-12 pt-8 text-4xl font-bold tracking-widest">{{ pokemonCount }} Pokémon</h3>
             <div class="grid grid-cols-12">
                 <div class="col-span-12 lg:col-span-4">
-                    <Search v-model="search"/>
+                    <Search v-model="search" @update:model-value="triggerSearch"/>
                 </div>
                 <div class="col-span-12 lg:col-span-2">
+                    <Select :options="stats" v-model="sortByStat" @update:model-value="triggerSearch">Sort By
+                        Stat</Select>
                 </div>
                 <div class="col-span-12 lg:col-span-6">
                     <div class="flex justify-end" v-show="search.length <= 0">

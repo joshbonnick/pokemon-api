@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\PokemonStats;
 use App\Models\Pokemon;
 use App\Repositories\PokemonRepository;
 use Inertia\Inertia;
@@ -18,6 +19,7 @@ class PokemonController extends Controller
         return Inertia::render('Home', [
             'pokemon' => $pokemon,
             'pokemon_count' => $pokemon_repository->count(),
+            'stats' => PokemonStats::cases(),
         ]);
     }
 
