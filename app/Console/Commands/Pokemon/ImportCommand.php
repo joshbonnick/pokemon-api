@@ -14,7 +14,7 @@ class ImportCommand extends Command
     /**
      * @var string
      */
-    protected $signature = 'pokemon:import';
+    protected $signature = 'pokemon:import {limit=151} {chunk-size=20}';
 
     /**
      * @var string
@@ -26,13 +26,15 @@ class ImportCommand extends Command
      */
     public function handle(PokeAPIClient $client): int
     {
-        $list = $client->listPokemon(151);
+        $this->info('Importing '.($limit = $this->argument('limit')).' Pokemon');
+
+        $list = $client->listPokemon($limit);
 
         if (! Arr::exists($list, 'results')) {
             throw new NoResultsFoundException();
         }
 
-        collect($list['results'])->chunk(20)->each(function (Collection $results) {
+        collect($list['results'])->chunk($this->argument('chunk-size'))->each(function (Collection $results) {
             ImportPokemon::dispatch($results);
         });
 
