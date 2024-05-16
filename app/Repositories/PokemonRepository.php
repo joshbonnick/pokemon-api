@@ -2,12 +2,14 @@
 
 namespace App\Repositories;
 
-use App\Contracts\PokemonQuery;
 use App\Models\Pokemon;
 use Illuminate\Database\Eloquent\Builder;
 
-class PokemonRepository implements PokemonQuery
+class PokemonRepository
 {
+    /**
+     * @return Builder<Pokemon>
+     */
     public function all(): Builder
     {
         return Pokemon::query()->with(static::eagerLoadedRelationships());
@@ -20,9 +22,7 @@ class PokemonRepository implements PokemonQuery
 
     public function eagerLoaded(Pokemon $pokemon): Pokemon
     {
-        $pokemon->load(static::eagerLoadedRelationships());
-
-        return $pokemon;
+        return tap($pokemon)->load(static::eagerLoadedRelationships());
     }
 
     /**

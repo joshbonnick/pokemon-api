@@ -3,7 +3,6 @@
 namespace Tests\Feature\Jobs\Pokemon;
 
 use App\Jobs\Pokemon\ImportPokemon;
-use App\Services\PokeAPI\Exceptions\NoResultsFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
@@ -13,23 +12,6 @@ use Tests\TestCase;
 class ImportPokemonTest extends TestCase
 {
     use RefreshDatabase;
-
-    #[Test]
-    public function it_throws_exception_if_no_results(): void
-    {
-        $this->expectException(NoResultsFoundException::class);
-        $this->withoutExceptionHandling();
-
-        Http::preventStrayRequests();
-
-        $url = config('pokeapi.base_url').'pokemon?limit=1';
-
-        Http::fake([
-            $url => Http::response(['::nothing::' => '::here::']),
-        ]);
-
-        ImportPokemon::dispatchSync(1);
-    }
 
     #[Test]
     public function it_imports_pokemon_from_api(): void
@@ -54,7 +36,11 @@ class ImportPokemonTest extends TestCase
                 true)),
         ]);
 
-        ImportPokemon::dispatchSync($limit);
+        ImportPokemon::dispatchSync(collect([
+            [
+                'name' => 'bob', 'url' => 'https://pokeapi.co/api/v2/pokemon/1/',
+            ],
+        ]));
 
         Http::assertSent(fn (Request $request): bool => $request->url() === 'https://pokeapi.co/api/v2/pokemon/1/');
         Http::assertSent(fn (Request $request): bool => $request->url() === 'https://pokeapi.co/api/v2/pokemon-form/1/');

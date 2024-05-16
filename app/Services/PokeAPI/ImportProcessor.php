@@ -3,22 +3,31 @@
 namespace App\Services\PokeAPI;
 
 use App\Models\Pokemon;
-use App\Models\PokemonAbility;
 use App\Models\PokemonForm;
 use App\Models\PokemonFormSprite;
 use App\Models\PokemonHeldItem;
+use App\Repositories\PokemonAbilityRepository;
+use App\Repositories\PokemonFormRepository;
+use App\Repositories\PokemonHeldItemRepository;
 use App\Services\PokeAPI\DataTransferObjects\PokemonDto;
 use Http;
 use Illuminate\Support\Collection;
 
 class ImportProcessor
 {
+    public function __construct(
+        protected PokemonAbilityRepository $ability_repository,
+        protected PokemonHeldItemRepository $held_item_repository,
+        protected PokemonFormRepository $form_repository
+    ) {
+    }
+
     /**
      * @param  array{url: string}  $pokemon
      */
     public function process(array $pokemon): Pokemon
     {
-        $payload = Http::get($pokemon['url'])->json();
+        $payload = cache()->remember($pokemon['url'], now()->addHour(), fn () => Http::get($pokemon['url'])->json());
 
         $pokemon = PokemonDto::from($payload)->toModel();
 
@@ -35,10 +44,9 @@ class ImportProcessor
      */
     protected function processHeldItems(array $held_items): Collection
     {
-        return collect($held_items)->map(fn (array $held_item) => PokemonHeldItem::query()->firstOrCreate(
-            ['name' => $held_item['item']['name']],
-            ['name' => $held_item['item']['name']]
-        ));
+        return collect($held_items)->map(function (array $held_item) {
+            return $this->held_item_repository->getItemByNameOrCreate($held_item);
+        });
     }
 
     /**
@@ -48,10 +56,7 @@ class ImportProcessor
     protected function processAbilities(array $abilities): Collection
     {
         return collect($abilities)->mapWithKeys(function (array $ability) {
-            $ability_model = PokemonAbility::query()->firstOrCreate(
-                ['name' => $ability['ability']['name']],
-                ['name' => $ability['ability']['name']]
-            );
+            $ability_model = $this->ability_repository->getAbilityByNameOrCreate($ability['ability']['name']);
 
             return [$ability_model->id => ['is_hidden' => (bool) $ability['is_hidden'], 'slot' => (int) $ability['slot']]];
         });
@@ -64,21 +69,10 @@ class ImportProcessor
     protected function processForms(array $forms): Collection
     {
         return collect($forms)->map(function (array $form) {
-            $form = Http::get($form['url'])->json();
+            $form = cache()->remember($form['url'], now()->addHour(), fn () => Http::get($form['url'])->json());
 
-            return PokemonForm::query()->firstOrCreate(
-                ['pokeapi_id' => $form['id']],
-                [
-                    'pokeapi_id' => $form['id'],
-                    'name' => $form['name'],
-                    'order' => $form['order'],
-                    'form_order' => $form['form_order'],
-                    'is_battle_only' => $form['is_battle_only'],
-                    'is_default' => $form['is_default'],
-                    'is_mega' => $form['is_mega'],
-                    'pokemon_form_sprite_id' => $this->processSprite($form['sprites'])->id,
-                ]
-            );
+            return $this->form_repository->getFormByPokeIdOrCreate($form['id'], $form,
+                $this->processSprite($form['sprites']));
         });
     }
 
