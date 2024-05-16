@@ -2,6 +2,7 @@
 import Layout from '@/Components/Layouts/Guest.vue'
 import Sprite from '@/Components/Pokemon/Sprite.vue'
 import { ref } from 'vue'
+import Abilities from '@/Components/Pokemon/Abilities.vue'
 
 const props = defineProps({ pokemon: Object })
 
@@ -59,6 +60,10 @@ const cry = ref(null)
                                     </li>
                                 </ul>
                             </div>
+                        </div>
+
+                        <div class="col-span-12 lg:col-span-6">
+                            <Abilities :abilities="pokemon.abilities" class="mt-4 lg:mt-8"/>
                         </div>
                     </div>
                     <div class="col-span-12 lg:col-span-4">
