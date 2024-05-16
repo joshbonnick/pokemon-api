@@ -1,6 +1,8 @@
 <script setup>
+import { computed } from 'vue'
+
 const props = defineProps({ pokemon: Object })
-const formSprite = props.pokemon.forms[0]
+const formSprite = computed(() => props.pokemon.forms[0])
 </script>
 
 <template>

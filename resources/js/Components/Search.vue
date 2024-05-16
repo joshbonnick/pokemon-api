@@ -14,6 +14,7 @@ const placeholder = computed(() => {
     let isMac = navigator.userAgent.indexOf('Mac') >= 0
     return isMac ? '⌘ F' : 'Ctrl F'
 })
+
 onMounted(() => {
     document.addEventListener('keydown', (event) => {
         if (event.ctrlKey === true && event.key === 'f') {
@@ -33,6 +34,8 @@ onMounted(() => {
                 <i :class="iconClass"></i>
             </div>
             <input v-bind="$attrs" id="poke-search" :class="inputClass" :placeholder="placeholder"
+                   type="search"
+                   @change="$emit('update:modelValue', ($event.target).value)"
                    @input="$emit('update:modelValue', ($event.target).value)"/>
         </div>
     </div>

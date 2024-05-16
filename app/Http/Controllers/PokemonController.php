@@ -14,7 +14,7 @@ class PokemonController extends Controller
         return Inertia::render('Home', [
             'pokemon' => $pokemon_repository->withRelations()->select([
                 'id', 'name',
-            ])->orderBy('order')->get(),
+            ])->orderBy('order')->paginate(20),
             'pokemon_count' => $pokemon_repository->count(),
         ]);
     }
