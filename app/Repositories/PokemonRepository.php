@@ -10,7 +10,7 @@ class PokemonRepository
     /**
      * @return Builder<Pokemon>
      */
-    public function all(): Builder
+    public function withRelations(): Builder
     {
         return Pokemon::query()->with(static::eagerLoadedRelationships());
     }

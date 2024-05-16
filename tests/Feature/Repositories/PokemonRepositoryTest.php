@@ -17,6 +17,6 @@ class PokemonRepositoryTest extends TestCase
     {
         Pokemon::factory()->count(3)->create();
 
-        $this->assertCount(3, resolve(PokemonRepository::class)->all()->select('id')->get());
+        $this->assertCount(3, resolve(PokemonRepository::class)->withRelations()->select('id')->get());
     }
 }

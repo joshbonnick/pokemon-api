@@ -12,6 +12,6 @@ class IndexController extends Controller
 {
     public function __invoke(Request $request, PokemonRepository $query): AnonymousResourceCollection
     {
-        return PokemonResource::collection($query->all()->paginate(15));
+        return PokemonResource::collection($query->withRelations()->paginate(15));
     }
 }

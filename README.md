@@ -42,14 +42,26 @@
     ./vendor/bin/sail artisan migrate
     ```
 
-7. **Access the Application**
+7. **Install NPM Packages**
+
+    ```bash
+    ./vendor/bin/sail npm install
+    ```
+
+8. **Build Front-End Assets**
+
+    ```bash
+    ./vendor/bin/sail npm run build
+    ```
+
+9. **Access the Application**
 
    You can now access the application at [http://localhost](http://localhost).
 
 ## Importing Pokemon
 
-    This process takes around 70 seconds if the queue is set to `sync`.
+This process takes around 70 seconds if the queue is set to `sync`.
 
 ```bash
-    ./vendor/bin/sail artisan pokemon:import
+./vendor/bin/sail artisan pokemon:import
 ```

@@ -1,5 +1,42 @@
+@import '@fortawesome/fontawesome-free/css/all.css';
 @config './tailwind.config.js';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+p {
+    margin-bottom: 15px;
+}
+
+.grid {
+    @apply gap-4 lg:gap-8
+}
+
+.hover-bounce {
+    img {
+        display: inline-block;
+        transition: transform 0.5s ease-in-out;
+    }
+}
+
+.hover-bounce:hover {
+    img {
+        animation: bounce 3s infinite;
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.call-to-action {
+    @apply bg-gradient-to-br from-red-400 to-red-500 hover:from-red-500
+    hover:to-red-400 text-white text-center py-2 rounded-full transition-all ease-in-out
+    uppercase tracking-widest font-poetsen drop-shadow-md px-8 lg:px-24 inline-block;
+}
