@@ -25,7 +25,6 @@ class PokemonResource extends JsonResource
             'height' => $this->height,
             'is_default' => $this->is_default,
             'abilities' => PokemonAbilityResource::collection($this->abilities),
-            'held_items' => $this->held_items,
             'forms' => PokemonFormResource::collection($this->forms),
         ];
     }
