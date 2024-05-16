@@ -1,15 +1,4 @@
-# Laravel Project Setup with Sail
-
-Follow these steps to set up the project on your local machine using Laravel Sail.
-
-## Prerequisites
-
-Before you begin, ensure you have the following installed on your machine:
-
-- [Docker](https://www.docker.com/get-started)
-- [Docker Compose](https://docs.docker.com/compose/install/)
-
-## Getting Started
+## Installation
 
 1. **Clone the Repository**
 
@@ -59,8 +48,8 @@ Before you begin, ensure you have the following installed on your machine:
 
 ## Importing Pokemon
 
-    This process takes around 90 seconds. Either have the queue set to sync or run queue:work
+    This process takes around 70 seconds if the queue is set to `sync`.
 
 ```bash
-    sail artisan pokemon:import
+    ./vendor/bin/sail artisan pokemon:import
 ```
