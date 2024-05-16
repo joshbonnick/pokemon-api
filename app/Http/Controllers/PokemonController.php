@@ -27,8 +27,16 @@ class PokemonController extends Controller
 
     public function show(PokemonRepository $pokemon_repository, Pokemon $pokemon): Response
     {
+        $related = $pokemon_repository
+            ->withRelations()
+            ->select(['id', 'name', 'stats', 'order', 'base_experience', 'height', 'weight'])
+            ->limit(5)
+            ->inRandomOrder()
+            ->get();
+
         return Inertia::render('Pokemon/Show', [
             'pokemon' => $pokemon_repository->eagerLoaded($pokemon),
+            'related' => $related,
         ]);
     }
 }

@@ -12,6 +12,6 @@ const formSprite = computed(() => props.pokemon.forms[0].sprites)
 
 <template>
     <img :src="formSprite[style]" :alt="pokemon.name"
-         style="image-rendering: pixelated" draggable="false" loading="lazy">
+         style="image-rendering: pixelated" draggable="false" loading="eager">
 </template>
 

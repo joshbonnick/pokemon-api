@@ -4,8 +4,9 @@ import { ref } from 'vue'
 import Abilities from '@/Components/Pokemon/Abilities.vue'
 import { Link } from '@inertiajs/vue3'
 import Sprite from '@/Components/Pokemon/Sprite.vue'
+import PokemonCard from '@/Components/Pokemon/Card.vue'
 
-const props = defineProps({ pokemon: Object })
+const props = defineProps({ pokemon: Object, related: Array })
 
 const name = props.pokemon.name.charAt(0).toUpperCase() + props.pokemon.name.slice(1)
 
@@ -32,7 +33,7 @@ const cry = ref(null)
                                 <i class="fa-solid fa-volume-high text-xl align-middle"></i>
                             </button>
                         </div>
-                        <div class="grid grid-cols-1 lg:grid-cols-2">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 bounce min-h-[490px]">
                             <Sprite :pokemon="pokemon" :style="'front_default'" class="w-full"/>
                             <Sprite :pokemon="pokemon" :style="'back_default'" class="w-full"/>
                             <Sprite :pokemon="pokemon" :style="'front_shiny'" class="w-full"/>
@@ -80,6 +81,9 @@ const cry = ref(null)
                     </div>
                 </div>
             </article>
+            <div class="grid grid-cols-1 lg:grid-cols-5 mt-8 mb-12">
+                <PokemonCard v-for="poke in related" :pokemon="poke"></PokemonCard>
+            </div>
         </div>
     </Layout>
 </template>
