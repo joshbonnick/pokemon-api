@@ -51,7 +51,7 @@ const pokemonCount = ref(props.pokemon_count)
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 lg:grid-cols-5 mt-8 mb-12" id="pokemon">
+            <div class="grid grid-cols-1 lg:grid-cols-5 mt-8 mb-12" id="pokemon">
                 <PokemonCard v-for="poke in pokemon.data" :pokemon="poke"></PokemonCard>
             </div>
 

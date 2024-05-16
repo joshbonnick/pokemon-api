@@ -38,12 +38,4 @@ class Pokemon extends Model
     {
         return $this->belongsToMany(PokemonForm::class)->orderBy('order');
     }
-
-    /**
-     * @return BelongsToMany<PokemonHeldItem>
-     */
-    public function held_items(): BelongsToMany
-    {
-        return $this->belongsToMany(PokemonHeldItem::class);
-    }
 }

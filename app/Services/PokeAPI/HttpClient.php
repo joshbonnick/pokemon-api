@@ -20,11 +20,8 @@ class HttpClient implements PokeAPIClient
      */
     public function listPokemon(int $limit): array
     {
-        return Cache::remember(
-            "pokeapi:list-pokemon:limit:$limit",
-            now()->addHour(),
-            fn () => $this->request->get('pokemon', ['limit' => $limit])->json()
-        );
+        return Cache::remember("pokeapi:list-pokemon:limit:$limit", now()->addHour(),
+            fn () => $this->request->get('pokemon', ['limit' => $limit])->json());
     }
 
     /**
@@ -32,10 +29,15 @@ class HttpClient implements PokeAPIClient
      */
     public function pokemon(int $id): array
     {
-        return Cache::remember(
-            "pokeapi:pokemon:$id",
-            now()->addHour(),
-            fn () => $this->request->get("pokemon/$id")->json()
-        );
+        return Cache::remember("pokeapi:pokemon:$id", now()->addHour(),
+            fn () => $this->request->get("pokemon/$id")->json());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function get(string $url): array
+    {
+        return cache()->remember("pokeapi:$url", now()->addHour(), fn () => $this->request->get($url)->json());
     }
 }

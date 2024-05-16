@@ -15,4 +15,9 @@ interface PokeAPIClient
      * @return array<string, mixed>
      */
     public function pokemon(int $id): array;
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function get(string $url): array;
 }

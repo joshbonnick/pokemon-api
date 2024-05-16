@@ -24,7 +24,7 @@ class PokemonFormResource extends JsonResource
             'is_battle_only' => $this->is_battle_only,
             'is_default' => $this->is_default,
             'is_mega' => $this->is_mega,
-            'sprite' => PokemonFormSpriteResource::make($this->sprite),
+            'sprites' => $this->sprites,
         ];
     }
 }

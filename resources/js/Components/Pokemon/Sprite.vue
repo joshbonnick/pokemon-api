@@ -7,11 +7,11 @@ const props = defineProps({
         type: String, default: 'front_default'
     }
 })
-const formSprite = computed(() => props.pokemon.forms[0])
+const formSprite = computed(() => props.pokemon.forms[0].sprites)
 </script>
 
 <template>
-    <img :src="formSprite.sprite[style]" :alt="pokemon.name"
+    <img :src="formSprite[style]" :alt="pokemon.name"
          style="image-rendering: pixelated" draggable="false" loading="lazy">
 </template>
 

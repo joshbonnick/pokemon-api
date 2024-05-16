@@ -15,7 +15,7 @@ class IndexController extends Controller
     {
         $validated = $request->safe();
 
-        $pokemon_query = $query->withRelations();
+        $pokemon_query = $query->withRelations()->select(['id', 'name', 'stats', 'order']);
 
         if ($validated->has('s')) {
             $search = str($validated->input('s'))->wrap('%');
@@ -30,6 +30,8 @@ class IndexController extends Controller
 
             $pokemon_query->orderByRaw("CAST(stats->'$.{$stat}' AS unsigned) DESC");
         }
+
+        $pokemon_query->orderBy('order');
 
         return PokemonResource::collection($pokemon_query->get());
     }

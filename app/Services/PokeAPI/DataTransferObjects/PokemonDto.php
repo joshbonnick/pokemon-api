@@ -25,7 +25,7 @@ readonly class PokemonDto
         public bool $is_default,
         public int $order,
     ) {
-        $this->stats = $this->processStats($stats);
+        $this->stats = $this->stats($stats);
     }
 
     public function toModel(): Pokemon
@@ -67,7 +67,7 @@ readonly class PokemonDto
      * @param  array<int, array<string, mixed>>  $stats
      * @return array<array-key, mixed>
      */
-    protected function processStats(array $stats): array
+    protected function stats(array $stats): array
     {
         return collect($stats)->mapWithKeys(fn (array $stat) => [$stat['stat']['name'] => $stat['base_stat']])->all();
     }

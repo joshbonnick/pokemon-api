@@ -60,7 +60,7 @@
 
 ## Importing Pokemon
 
-This process takes around 70 seconds if the queue is set to `sync`.
+Queue must either be set to `sync` or you must run the job the command queues with `artisan queue:work`
 
 ```bash
 ./vendor/bin/sail artisan pokemon:import

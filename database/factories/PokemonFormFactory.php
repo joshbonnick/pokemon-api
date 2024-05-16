@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\PokemonForm;
-use App\Models\PokemonFormSprite;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -26,7 +25,12 @@ class PokemonFormFactory extends Factory
             'is_battle_only' => $this->faker->boolean(15),
             'is_default' => $this->faker->boolean(85),
             'is_mega' => $this->faker->boolean(15),
-            'pokemon_form_sprite_id' => PokemonFormSprite::factory(),
+            'sprites' => json_encode([
+                'back_default' => 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png',
+                'back_shiny' => 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/1.png',
+                'front_default' => 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
+                'front_shiny' => 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png',
+            ]),
         ];
     }
 }
