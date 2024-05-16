@@ -24,11 +24,7 @@ const pokemonCount = ref(props.pokemon_count)
 
 <template>
     <Layout title="Welcome">
-        <PikachuBanner title="Metus posuere">
-            <p>Proin lacinia varius placerat. Vivamus vitae leo lacus. Nam egestas nulla a erat condimentum cursus.
-                Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris in
-                dolor vitae metus posuere ornare quis sed lectus. Orci varius natoque penatibus et magnis dis parturient
-                montes, nascetur ridiculus mus.</p>
+        <PikachuBanner title="Pokédex">
             <div>
                 <a href="#pokemon" class="call-to-action mt-4">
                     Browse Pokémon <i class="fa-solid fa-angle-down"></i>
