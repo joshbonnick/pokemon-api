@@ -26,7 +26,7 @@ class ImportCommand extends Command
      */
     public function handle(PokeAPIClient $client): int
     {
-        $this->info('Importing '.($limit = $this->argument('limit')).' Pokemon');
+        $this->info('Attempting to importing '.($limit = $this->argument('limit')).' Pokemon');
 
         $list = $client->listPokemon($limit);
 
