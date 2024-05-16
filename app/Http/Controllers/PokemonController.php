@@ -11,10 +11,12 @@ class PokemonController extends Controller
 {
     public function index(PokemonRepository $pokemon_repository): Response
     {
+        $pokemon = $pokemon_repository->withRelations()->select([
+            'id', 'name', 'stats',
+        ])->orderBy('order')->paginate(20);
+
         return Inertia::render('Home', [
-            'pokemon' => $pokemon_repository->withRelations()->select([
-                'id', 'name', 'stats',
-            ])->orderBy('order')->paginate(20),
+            'pokemon' => $pokemon,
             'pokemon_count' => $pokemon_repository->count(),
         ]);
     }
