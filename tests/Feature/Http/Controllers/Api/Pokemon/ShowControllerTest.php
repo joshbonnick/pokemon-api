@@ -51,7 +51,7 @@ class ShowControllerTest extends TestCase
                     'weight', 'base_experience',
                     'height', 'stats',
                     'is_default', 'abilities',
-                    'held_items', 'forms',
+                    'forms',
                 ],
             ]);
     }
