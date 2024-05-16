@@ -15,7 +15,7 @@ class ImportPokemon implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
-     * @param  Collection<int, array{url: string, name:string}>  $pokemon
+     * @param  Collection<int, array{name:string, url: string}>  $pokemon
      */
     public function __construct(protected Collection $pokemon)
     {

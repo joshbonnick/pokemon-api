@@ -26,7 +26,9 @@ class ImportCommand extends Command
      */
     public function handle(PokeAPIClient $client): int
     {
-        $this->info('Attempting to importing '.($limit = $this->argument('limit')).' Pokemon');
+        $limit = (int) $this->argument('limit');
+
+        $this->info("Attempting to importing $limit Pokemon");
 
         $list = $client->listPokemon($limit);
 
@@ -34,7 +36,7 @@ class ImportCommand extends Command
             throw new NoResultsFoundException();
         }
 
-        collect($list['results'])->chunk($this->argument('chunk-size'))->each(function (Collection $results) {
+        collect($list['results'])->chunk((int) $this->argument('chunk-size'))->each(function (Collection $results) {
             ImportPokemon::dispatch($results);
         });
 
