@@ -32,9 +32,9 @@ class PokemonRepository
     {
         return [
             'abilities:id,name',
-            'forms',
-            'forms.sprite',
-            'held_items',
+            'forms:id,name,order,form_order,is_battle_only,is_default,is_mega,pokemon_form_sprite_id',
+            'forms.sprite:id,back_default,back_shiny,front_default,front_shiny',
+            'held_items:id,name',
         ];
     }
 }

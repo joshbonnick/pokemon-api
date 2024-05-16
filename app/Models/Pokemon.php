@@ -36,7 +36,7 @@ class Pokemon extends Model
      */
     public function forms(): BelongsToMany
     {
-        return $this->belongsToMany(PokemonForm::class);
+        return $this->belongsToMany(PokemonForm::class)->orderBy('order');
     }
 
     /**
