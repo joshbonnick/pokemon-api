@@ -7,7 +7,6 @@ defineEmits(['update:modelValue'])
 const inputClass = computed(() => {
     return 'w-full pl-10 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent shadow-sm'
 })
-
 const iconClass = computed(() => {
     return `text-gray-500 fa-solid fa-search`
 })
