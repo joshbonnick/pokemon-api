@@ -15,7 +15,8 @@ class IndexController extends Controller
     {
         $validated = $request->safe();
 
-        $pokemon_query = $query->withRelations()->select(['id', 'name', 'stats', 'order', 'base_experience']);
+        $pokemon_query = $query->withRelations()
+            ->select(['id', 'name', 'stats', 'order', 'base_experience', 'height', 'weight']);
 
         if ($validated->has('s')) {
             $search = str($validated->input('s'))->wrap('%');

@@ -1,8 +1,9 @@
 <script setup>
 import Layout from '@/Components/Layouts/Guest.vue'
-import Sprite from '@/Components/Pokemon/Sprite.vue'
 import { ref } from 'vue'
 import Abilities from '@/Components/Pokemon/Abilities.vue'
+import { Link } from '@inertiajs/vue3'
+import Sprite from '@/Components/Pokemon/Sprite.vue'
 
 const props = defineProps({ pokemon: Object })
 
@@ -14,11 +15,14 @@ const cry = ref(null)
 <template>
     <Layout :title="`${name}`">
         <div class="container mx-auto mt-8">
+            <Link href="/" class="call-to-action mt-4">
+                <i class="fa-solid fa-angle-left"></i> Browse Pokémon
+            </Link>
             <audio :src="pokemon.cry" class="hidden" ref="cry"></audio>
 
-            <article>
+            <article class="pt-12 lg:pt-18">
                 <div class="grid grid-cols-12">
-                    <div class="col-span-12 lg:col-span-8">
+                    <div class="col-span-12 lg:col-span-4">
                         <div class="flex items-center mb-4 lg:mb-8 space-x-4">
                             <h1 class="text-5xl font-bold uppercase tracking-widest font-poetsen">
                                 {{ pokemon.name }}
@@ -28,46 +32,51 @@ const cry = ref(null)
                                 <i class="fa-solid fa-volume-high text-xl align-middle"></i>
                             </button>
                         </div>
-                        <div class="grid grid-cols-12">
-                            <div class="col-span-12 lg:col-span-6">
-                                <div class="bg-gray-100 p-6">
-                                    <h2 class="text-xl font-bold mb-4 uppercase tracking-widest font-poetsen">Stats</h2>
-                                    <ul>
-                                        <li v-for="(value, name) in pokemon.stats"
-                                            class="flex items-center justify-between">
-                                            <p class="uppercase text-xs !mb-0">{{ name }}</p>
-                                            <p class="text-sm font-bold">{{ value }}</p>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-span-12 lg:col-span-6">
-                                <ul class="flex items-center flex-wrap">
-                                    <li class="flex-[0_0_50%]">
-                                        <p class="text-sm font-bold mb-0 uppercase tracking-widest font-poetsen">
-                                            Height</p>
-                                        <p class="text-4xl">{{ pokemon.height }}m</p>
-                                    </li>
-                                    <li class="flex-[0_0_50%]">
-                                        <p class="text-sm font-bold mb-0 uppercase tracking-widest font-poetsen">
-                                            Weight</p>
-                                        <p class="text-4xl">{{ pokemon.weight }}kg</p>
-                                    </li>
-                                    <li class="flex-[0_0_50%]">
-                                        <p class="text-sm font-bold mb-0 uppercase tracking-widest font-poetsen">Base
-                                            Experience</p>
-                                        <p class="text-4xl">{{ pokemon.base_experience }}</p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="col-span-12 lg:col-span-6">
-                            <Abilities :abilities="pokemon.abilities" class="mt-4 lg:mt-8"/>
+                        <div class="grid grid-cols-1 lg:grid-cols-2">
+                            <Sprite :pokemon="pokemon" :style="'front_default'" class="w-full"/>
+                            <Sprite :pokemon="pokemon" :style="'back_default'" class="w-full"/>
+                            <Sprite :pokemon="pokemon" :style="'front_shiny'" class="w-full"/>
+                            <Sprite :pokemon="pokemon" :style="'back_shiny'" class="w-full"/>
                         </div>
                     </div>
                     <div class="col-span-12 lg:col-span-4">
-                        <Sprite :pokemon="pokemon" class="w-full" :style="'front_shiny'"/>
+                        <div class="mb-8">
+                            <h2 class="text-xl font-bold mb-4 uppercase tracking-widest font-poetsen">Stats</h2>
+                            <ul>
+                                <li v-for="(value, name) in pokemon.stats"
+                                    class="flex items-center justify-between">
+                                    <p class="uppercase text-xs !mb-0">{{ name }}</p>
+                                    <p class="text-sm font-bold">{{ value }}</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <ul class="flex items-center flex-wrap">
+                            <li class="flex-[0_0_50%]">
+                                <p class="text-sm font-bold mb-0 uppercase tracking-widest font-poetsen">
+                                    Height</p>
+                                <p class="text-4xl">
+                                    {{ pokemon.height }}<span class="text-sm">m</span>
+                                </p>
+                            </li>
+                            <li class="flex-[0_0_50%]">
+                                <p class="text-sm font-bold mb-0 uppercase tracking-widest font-poetsen">
+                                    Weight</p>
+                                <p class="text-4xl">
+                                    {{ pokemon.weight }}<span class="text-sm">kg</span>
+                                </p>
+                            </li>
+                            <li class="flex-[0_0_50%]">
+                                <p class="text-sm font-bold mb-0 uppercase tracking-widest font-poetsen">
+                                    Base Experience
+                                </p>
+                                <p class="text-4xl">
+                                    {{ pokemon.base_experience }}<span class="text-sm">xp</span>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-span-12 lg:col-span-4">
+                        <Abilities :abilities="pokemon.abilities"/>
                     </div>
                 </div>
             </article>

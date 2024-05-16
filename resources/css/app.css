@@ -44,5 +44,5 @@ p {
 .call-to-action {
     @apply bg-gradient-to-br from-red-400 to-red-500 hover:from-red-500
     hover:to-red-400 text-white text-center py-2 rounded-full transition-all ease-in-out
-    uppercase tracking-widest font-poetsen drop-shadow-md px-8 lg:px-24 inline-block;
+    uppercase tracking-widest font-poetsen drop-shadow-md px-8 lg:px-12 inline-block text-base;
 }

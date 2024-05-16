@@ -13,9 +13,7 @@ defineProps({
                         <h1 class="text-5xl mb-4 lg:mb-8 font-bold uppercase tracking-widest font-poetsen">
                             {{ title }}
                         </h1>
-                        <div class="text-lg">
-                            <slot/>
-                        </div>
+                        <slot/>
                     </div>
                 </div>
                 <div class="col-span-12 lg:col-span-5">

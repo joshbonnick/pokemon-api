@@ -18,7 +18,7 @@ const triggerSearch = () => {
     })
 }
 
-const props = defineProps({ pokemon: Object, pokemon_count: Number, stats: Array })
+const props = defineProps({ pokemon: Object, pokemon_count: Number, stats: Object })
 
 const pokemon = reactive(props.pokemon)
 const pokemonCount = ref(props.pokemon_count)
@@ -42,12 +42,8 @@ const pokemonCount = ref(props.pokemon_count)
                 </div>
                 <div class="col-span-12 lg:col-span-2">
                     <Select :options="stats" v-model="sortByStat" @update:model-value="triggerSearch">Sort By
-                        Stat</Select>
-                </div>
-                <div class="col-span-12 lg:col-span-6">
-                    <div class="flex justify-end" v-show="search.length <= 0">
-                        <Pagination class="mt-10" :links="pokemon.links"/>
-                    </div>
+                        Stat
+                    </Select>
                 </div>
             </div>
 
