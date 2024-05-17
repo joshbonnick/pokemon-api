@@ -37,10 +37,10 @@ const pokemonCount = ref(props.pokemon_count)
         <div class="container mx-auto px-4 text-center lg:text-left">
             <h3 class="pb-8 lg:pb-12 pt-8 text-xl lg:text-4xl font-bold tracking-widest">{{ pokemonCount }} Pokémon</h3>
             <div class="grid grid-cols-12">
-                <div class="col-span-6 lg:col-span-4">
+                <div class="col-span-12 lg:col-span-4">
                     <Search v-model="search" @update:model-value="triggerSearch"/>
                 </div>
-                <div class="col-span-6 lg:col-span-4">
+                <div class="col-span-12 lg:col-span-4">
                     <Select :options="stats" v-model="sortByStat" @update:model-value="triggerSearch">Sort By
                         Stat
                     </Select>
