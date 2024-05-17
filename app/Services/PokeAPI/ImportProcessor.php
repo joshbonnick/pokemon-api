@@ -38,8 +38,10 @@ class ImportProcessor
     protected function abilities(array $abilities): Collection
     {
         return collect($abilities)->mapWithKeys(function (array $ability) {
-            $ability_model = PokemonAbility::query()->firstOrCreate(['name' => ($name = $ability['ability']['name'])],
-                ['name' => $name]);
+            $ability_model = PokemonAbility::query()->firstOrCreate(
+                ['name' => ($name = $ability['ability']['name'])],
+                ['name' => $name]
+            );
 
             return [$ability_model->id => ['is_hidden' => (bool) $ability['is_hidden'], 'slot' => (int) $ability['slot']]];
         });
