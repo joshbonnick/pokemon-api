@@ -25,7 +25,7 @@ class HttpClientTest extends TestCase
 
         $limit = fake()->randomNumber(1);
         $base = config('pokeapi.base_url');
-        $url = "{$base}pokemon?limit=$limit&offset=$limit";
+        $url = "{$base}pokemon?limit=$limit&offset=0";
 
         Http::fake([
             $url => Http::response(['results' => []], 200),
@@ -45,7 +45,7 @@ class HttpClientTest extends TestCase
 
         $limit = fake()->randomNumber(1);
         $base = config('pokeapi.base_url');
-        $url = "{$base}pokemon?limit=$limit&offset=$limit";
+        $url = "{$base}pokemon?limit=$limit&offset=0";
 
         Http::fake([
             $url => Http::response(['results' => []], 200),
