@@ -10,7 +10,17 @@ class Pokemon extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'name',
+        'pokeapi_id',
+        'base_experience',
+        'height',
+        'is_default',
+        'stats',
+        'order',
+        'weight',
+        'cry',
+    ];
 
     /**
      * @return array<string, string>

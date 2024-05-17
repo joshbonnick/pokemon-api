@@ -10,7 +10,16 @@ class PokemonForm extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'pokeapi_id',
+        'name',
+        'order',
+        'form_order',
+        'is_battle_only',
+        'is_default',
+        'is_mega',
+        'sprites',
+    ];
 
     /**
      * @return array<string, string>

@@ -17,6 +17,7 @@ class UpdateControllerTest extends TestCase
         $pokemon = Pokemon::factory()->create(['name' => '::old::']);
 
         $response = $this->patchJson(route('api.v1.pokemon.update', [$pokemon->id]), [
+            ...$pokemon->toArray(),
             'name' => '::new::',
         ]);
         $response->assertStatus(200);
