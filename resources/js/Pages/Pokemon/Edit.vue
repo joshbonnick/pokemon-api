@@ -1,6 +1,6 @@
 <script setup>
 import Layout from '@/Components/Layouts/Guest.vue'
-import { reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { Link } from '@inertiajs/vue3'
 
 const props = defineProps({ pokemon: Object, related: Array })
@@ -13,7 +13,7 @@ const data = reactive(props.pokemon)
 
 const update = () => {
     axios.post(`/api/v1/pokemon/${props.pokemon.id}`,
-        { name: data.name, _method: 'patch' }
+        { ...data, _method: 'patch' }
     ).then(() => {
         alert(`${data.name} has been updated successfully`)
     }).catch((error) => {
@@ -25,6 +25,12 @@ const update = () => {
         console.error(error)
     })
 }
+const nameInput = ref(null)
+
+onMounted(() => {
+    nameInput.value.focus()
+})
+
 </script>
 
 <template>
@@ -38,9 +44,20 @@ const update = () => {
             <form class="pt-12 lg:pt-18" @submit.prevent="update">
                 <div class="grid grid-cols-12">
                     <div class="col-span-12 lg:col-span-4">
-                        <div class="flex items-center justify-center lg:justify-start mb-4 lg:mb-8 space-x-4">
-                            <input type="text" v-model="data.name">
-                        </div>
+                        <label for="name" class="!mt-0">Name</label>
+                        <input type="text" id="name" v-model="data.name" ref="nameInput">
+
+                        <label for="base_exp">Base Experience</label>
+                        <input type="number" id="base_exp" v-model="data.base_experience">
+
+                        <label for="weight">Weight (kg)</label>
+                        <input type="number" id="weight" v-model="data.weight">
+
+                        <label for="height">Height (m)</label>
+                        <input type="number" v-model="data.height">
+
+                        <label for="order">Order</label>
+                        <input type="number" id="order" v-model="data.order">
                     </div>
                     <div class="col-span-12 lg:col-span-12">
                         <button class="call-to-action">

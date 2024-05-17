@@ -50,3 +50,7 @@ p {
 input {
     @apply w-full p-3 pb-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent shadow-sm;
 }
+
+label {
+    @apply font-bold tracking-widest uppercase mt-4 mb-1 text-sm block;
+}

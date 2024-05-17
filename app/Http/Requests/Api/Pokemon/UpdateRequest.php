@@ -14,6 +14,10 @@ class UpdateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
+            'base_experience' => ['required', 'integer'],
+            'height' => ['required', 'integer'],
+            'weight' => ['required', 'integer'],
+            'order' => ['required', 'integer'],
         ];
     }
 }
