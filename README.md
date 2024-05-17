@@ -62,6 +62,8 @@
 
 Queue must either be set to `sync` or run the jobs that are queued with `artisan queue:work`
 
+**This process takes around 90 seconds when running the queue synchronously.**
+
 ```bash
 ./vendor/bin/sail artisan pokemon:import
 ```
