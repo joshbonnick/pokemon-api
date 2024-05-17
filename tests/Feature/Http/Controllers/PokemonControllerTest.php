@@ -39,8 +39,6 @@ class PokemonControllerTest extends TestCase
     #[Test]
     public function it_displays_the_pokemon_detail_page_with_related_pokemon()
     {
-        $this->withoutExceptionHandling();
-
         $pokemon = Pokemon::factory()->create([
             'name' => 'Bulbasaur',
             'stats' => '[]',
