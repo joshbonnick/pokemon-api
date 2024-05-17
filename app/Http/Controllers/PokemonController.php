@@ -39,4 +39,11 @@ class PokemonController extends Controller
             'related' => $related,
         ]);
     }
+
+    public function edit(PokemonRepository $pokemon_repository, Pokemon $pokemon): Response
+    {
+        return Inertia::render('Pokemon/Edit', [
+            'pokemon' => $pokemon_repository->eagerLoaded($pokemon),
+        ]);
+    }
 }

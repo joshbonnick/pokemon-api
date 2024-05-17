@@ -57,7 +57,7 @@ class HttpClientTest extends TestCase
 
         Http::assertSent(fn (Request $request): bool => $request->url() == $url && $request['limit'] == $limit);
 
-        $this->assertNotEmpty(Cache::get("pokeapi:list-pokemon:limit:$limit"));
+        $this->assertNotEmpty(Cache::get("pokeapi:list-pokemon:limit:$limit:offset:0"));
     }
 
     #[Test]

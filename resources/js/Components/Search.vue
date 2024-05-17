@@ -4,7 +4,7 @@ import { computed, onMounted, ref } from 'vue'
 const props = defineProps(['modelValue'])
 defineEmits(['update:modelValue'])
 
-const inputClass = ref('w-full pl-10 p-3 pb-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent shadow-sm')
+const inputClass = ref('pl-10')
 
 const iconClass = ref('text-gray-500 fa-solid fa-search')
 
