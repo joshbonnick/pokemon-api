@@ -15,8 +15,8 @@ const cry = ref(null)
 
 <template>
     <Layout :title="`${name}`">
-        <div class="container mx-auto mt-8">
-            <Link href="/" class="call-to-action mt-4">
+        <div class="container mx-auto mt-8 px-4">
+            <Link href="/" class="w-full lg:w-auto call-to-action mt-4">
                 <i class="fa-solid fa-angle-left"></i> Browse Pokémon
             </Link>
             <audio :src="pokemon.cry" class="hidden" ref="cry"></audio>
@@ -24,8 +24,8 @@ const cry = ref(null)
             <article class="pt-12 lg:pt-18">
                 <div class="grid grid-cols-12">
                     <div class="col-span-12 lg:col-span-4">
-                        <div class="flex items-center mb-4 lg:mb-8 space-x-4">
-                            <h1 class="text-5xl font-bold uppercase tracking-widest font-poetsen">
+                        <div class="flex items-center justify-center lg:justify-start mb-4 lg:mb-8 space-x-4">
+                            <h1 class="text-3xl lg:text-5xl font-bold uppercase tracking-widest font-poetsen">
                                 {{ pokemon.name }}
                             </h1>
                             <button @click="cry.play()" :title="`Play ${pokemon.name} sound`"
@@ -33,7 +33,7 @@ const cry = ref(null)
                                 <i class="fa-solid fa-volume-high text-xl align-middle"></i>
                             </button>
                         </div>
-                        <div class="grid grid-cols-1 lg:grid-cols-2 bounce min-h-[490px]">
+                        <div class="grid grid-cols-4 lg:grid-cols-2 bounce lg:min-h-[490px]">
                             <Sprite :pokemon="pokemon" :style="'front_default'" class="w-full"/>
                             <Sprite :pokemon="pokemon" :style="'back_default'" class="w-full"/>
                             <Sprite :pokemon="pokemon" :style="'front_shiny'" class="w-full"/>
@@ -81,7 +81,7 @@ const cry = ref(null)
                     </div>
                 </div>
             </article>
-            <div class="grid grid-cols-1 lg:grid-cols-5 mt-8 mb-12">
+            <div class="grid grid-cols-2 lg:grid-cols-5 mt-8 mb-12">
                 <PokemonCard v-for="poke in related" :pokemon="poke"></PokemonCard>
             </div>
         </div>

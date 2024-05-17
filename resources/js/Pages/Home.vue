@@ -27,27 +27,27 @@ const pokemonCount = ref(props.pokemon_count)
 <template>
     <Layout title="Welcome">
         <PikachuBanner title="Pokédex">
-            <div>
-                <a href="#pokemon" class="call-to-action mt-4">
+            <div class="text-center lg:text-left">
+                <a href="#pokemon" class="call-to-action my-8 lg:mb-0 lg:mt-4">
                     Browse Pokémon <i class="fa-solid fa-angle-down"></i>
                 </a>
             </div>
         </PikachuBanner>
 
-        <div class="container mx-auto">
-            <h3 class="lg:pb-12 pt-8 text-4xl font-bold tracking-widest">{{ pokemonCount }} Pokémon</h3>
+        <div class="container mx-auto px-4 text-center lg:text-left">
+            <h3 class="pb-8 lg:pb-12 pt-8 text-xl lg:text-4xl font-bold tracking-widest">{{ pokemonCount }} Pokémon</h3>
             <div class="grid grid-cols-12">
-                <div class="col-span-12 lg:col-span-4">
+                <div class="col-span-6 lg:col-span-4">
                     <Search v-model="search" @update:model-value="triggerSearch"/>
                 </div>
-                <div class="col-span-12 lg:col-span-2">
+                <div class="col-span-6 lg:col-span-4">
                     <Select :options="stats" v-model="sortByStat" @update:model-value="triggerSearch">Sort By
                         Stat
                     </Select>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-5 mt-8 mb-12" id="pokemon">
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mt-8 mb-12" id="pokemon">
                 <PokemonCard v-for="poke in pokemon.data" :pokemon="poke"></PokemonCard>
             </div>
 
