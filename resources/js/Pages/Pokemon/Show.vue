@@ -19,7 +19,7 @@ const cry = ref(null)
             <Link href="/" class="w-full lg:w-auto call-to-action mt-4">
                 <i class="fa-solid fa-angle-left"></i> Browse Pokémon
             </Link>
-            <Link :href="`/pokemon/${pokemon.id}/edit`" class="w-full lg:w-auto call-to-action mt-4 ml-4">
+            <Link :href="`/pokemon/${pokemon.id}/edit`" class="w-full lg:w-auto call-to-action mt-4 lg:ml-4">
                 <i class="fa-solid fa-pencil"></i> Edit {{ pokemon.name }}
             </Link>
             <audio :src="pokemon.cry" class="hidden" ref="cry"></audio>
