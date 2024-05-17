@@ -30,7 +30,7 @@ class ImportCommand extends Command
 
         $this->info("Attempting to importing $limit Pokemon");
 
-        $list = $client->listPokemon($limit);
+        $list = $client->listPokemon($limit, 0);
 
         if (! Arr::exists($list, 'results')) {
             throw new NoResultsFoundException();
