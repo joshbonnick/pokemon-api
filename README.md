@@ -24,16 +24,16 @@
     cp .env.example .env
     ```
 
-4. **Generate Application Key**
-
-    ```bash
-    ./vendor/bin/sail artisan key:generate
-    ```
-
-5. **Start the Development Environment**
+4. **Start the Development Environment**
 
     ```bash
     ./vendor/bin/sail up -d
+    ```
+
+5. **Generate Application Key**
+
+    ```bash
+    ./vendor/bin/sail artisan key:generate
     ```
 
 6. **Run Database Migrations**
