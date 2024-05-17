@@ -23,8 +23,6 @@ class ImportPokemon implements ShouldQueue
 
     public function handle(ImportProcessor $import_processor): void
     {
-        $this->pokemon->each(function (array $pokemon) use ($import_processor) {
-            $import_processor->process($pokemon);
-        });
+        $this->pokemon->each($import_processor->process(...));
     }
 }
