@@ -60,7 +60,7 @@
 
 ## Importing Pokemon
 
-Queue must either be set to `sync` or you must run the job the command queues with `artisan queue:work`
+Queue must either be set to `sync` or run the jobs that are queued with `artisan queue:work`
 
 ```bash
 ./vendor/bin/sail artisan pokemon:import
