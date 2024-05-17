@@ -18,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             abstract: PokeAPIClient::class,
             concrete: fn () => new HttpClient(
-                Http::baseUrl(config('pokeapi.base_url'))->timeout(15)->asJson()->acceptJson()
+                Http::baseUrl(config('pokeapi.base_url'))->retry(3)->timeout(15)->asJson()->acceptJson()
             )
         );
     }
