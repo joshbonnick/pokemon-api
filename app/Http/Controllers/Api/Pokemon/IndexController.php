@@ -32,6 +32,14 @@ class IndexController extends Controller
             $pokemon_query->orderByRaw("CAST(stats->'$.{$stat}' AS unsigned) DESC");
         }
 
+        if ($validated->has('limit')) {
+            $pokemon_query->limit($validated->input('limit'));
+        }
+
+        if ($validated->has('offset')) {
+            $pokemon_query->offset($validated->input('offset'));
+        }
+
         $pokemon_query->orderBy('order');
 
         return PokemonResource::collection($pokemon_query->get());

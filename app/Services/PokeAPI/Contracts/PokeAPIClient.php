@@ -9,7 +9,7 @@ interface PokeAPIClient
     /**
      * @return array{count: int, next: string, previous: ?string, results: array<int, array{name: string, url: string}>}
      */
-    public function listPokemon(int $limit): array;
+    public function listPokemon(int $limit, int $offset): array;
 
     /**
      * @return array<string, mixed>

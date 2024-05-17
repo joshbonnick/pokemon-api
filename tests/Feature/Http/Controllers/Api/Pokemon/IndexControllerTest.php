@@ -76,4 +76,33 @@ class IndexControllerTest extends TestCase
         $response->assertJsonPath('data.1.name', 'Charmander');
         $response->assertJsonPath('data.2.name', 'Bulbasaur');
     }
+
+    #[Test]
+    public function it_limits_pokemon()
+    {
+        $pokemonCount = 10;
+        Pokemon::factory()->count($pokemonCount)->create();
+
+        $limit = 5;
+        $offset = 0;
+
+        $response = $this->getJson(route('api.v1.pokemon.index', ['limit' => $limit, 'offset' => $offset]));
+
+        $response->assertStatus(200);
+
+        $response->assertJsonCount($limit, 'data');
+    }
+
+    #[Test]
+    public function offset_cant_be_added_without_limit()
+    {
+        $pokemonCount = 10;
+        Pokemon::factory()->count($pokemonCount)->create();
+
+        $offset = 3;
+
+        $response = $this->getJson(route('api.v1.pokemon.index', ['offset' => $offset]));
+
+        $response->assertStatus(422);
+    }
 }

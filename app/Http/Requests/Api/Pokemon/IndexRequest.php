@@ -15,8 +15,10 @@ class IndexRequest extends FormRequest
     public function rules(): array
     {
         return [
-            's' => ['string'],
-            'stat_sort' => [new Enum(PokemonStats::class)],
+            's' => ['sometimes', 'string'],
+            'stat_sort' => ['sometimes', new Enum(PokemonStats::class)],
+            'limit' => ['int', 'required_with:offset'],
+            'offset' => ['sometimes', 'int'],
         ];
     }
 }
