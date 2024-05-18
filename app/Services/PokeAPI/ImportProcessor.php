@@ -35,9 +35,9 @@ class ImportProcessor
      */
     protected function pokemon(array $payload): Pokemon
     {
-        return Pokemon::query()->firstOrCreate(['pokeapi_id' => $payload['poke_api_id']], [
+        return Pokemon::query()->firstOrCreate(['pokeapi_id' => $payload['pokeapi_id']], [
             'name' => $payload['name'],
-            'pokeapi_id' => $payload['poke_api_id'],
+            'pokeapi_id' => $payload['pokeapi_id'],
             'base_experience' => $payload['base_experience'],
             'height' => $payload['height'],
             'weight' => $payload['weight'],
