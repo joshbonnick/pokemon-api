@@ -41,12 +41,21 @@ class ImportProcessor
             'base_experience' => $payload['base_experience'],
             'height' => $payload['height'],
             'weight' => $payload['weight'],
-            'cry' => $payload['cry'],
+            'cry' => data_get($payload, 'cries.latest'),
             'is_default' => $payload['is_default'],
             'order' => $payload['order'],
-            'stats' => collect($payload['stats'])->mapWithKeys(fn (array $stat) => [
-                data_get($stat, 'stat.name') => $stat['base_stat'],
-            ])->toArray(),
+            'stats' => $this->stats($payload['stats'])->toArray(),
+        ]);
+    }
+
+    /**
+     * @param  array<int, array{base_stat: int, stat: array{name: string}}>  $stats
+     * @return Collection<string, int>
+     */
+    protected function stats(array $stats): Collection
+    {
+        return collect($stats)->mapWithKeys(fn (array $stat) => [
+            data_get($stat, 'stat.name') => $stat['base_stat'],
         ]);
     }
 
