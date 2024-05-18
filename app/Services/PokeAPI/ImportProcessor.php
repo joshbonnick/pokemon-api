@@ -6,7 +6,6 @@ use App\Models\Pokemon;
 use App\Models\PokemonAbility;
 use App\Models\PokemonForm;
 use App\Services\PokeAPI\Contracts\PokeAPIClient;
-use App\Services\PokeAPI\DataTransferObjects\PokemonDto;
 use Illuminate\Support\Collection;
 
 class ImportProcessor
@@ -23,12 +22,32 @@ class ImportProcessor
     {
         $payload = $this->poke_api->get($pokemon['url']);
 
-        $pokemon = PokemonDto::from($payload)->toModel();
+        $pokemon = $this->pokemon($payload);
 
         $pokemon->forms()->sync($this->forms($payload['forms'])->pluck('id'));
-        $pokemon->abilities()->sync($this->abilities($payload['abilities'])->toArray());
+        $pokemon->abilities()->sync($this->abilities($payload['abilities']));
 
         return $pokemon;
+    }
+
+    /**
+     * @param  array<string, mixed>  $payload
+     */
+    protected function pokemon(array $payload): Pokemon
+    {
+        return Pokemon::query()->firstOrCreate(['pokeapi_id' => $payload['poke_api_id']], [
+            'name' => $payload['name'],
+            'pokeapi_id' => $payload['poke_api_id'],
+            'base_experience' => $payload['base_experience'],
+            'height' => $payload['height'],
+            'weight' => $payload['weight'],
+            'cry' => $payload['cry'],
+            'is_default' => $payload['is_default'],
+            'order' => $payload['order'],
+            'stats' => collect($payload['stats'])->mapWithKeys(fn (array $stat) => [
+                data_get($stat, 'stat.name') => $stat['base_stat'],
+            ])->toArray(),
+        ]);
     }
 
     /**
@@ -39,7 +58,7 @@ class ImportProcessor
     {
         return collect($abilities)->mapWithKeys(function (array $ability) {
             $ability_model = PokemonAbility::query()->firstOrCreate(
-                ['name' => ($name = $ability['ability']['name'])],
+                ['name' => ($name = data_get($ability, 'ability.name'))],
                 ['name' => $name]
             );
 
