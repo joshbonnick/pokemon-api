@@ -4,15 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Enums\PokemonStats;
 use App\Models\Pokemon;
-use App\Repositories\PokemonRepository;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class PokemonController extends Controller
 {
-    public function index(PokemonRepository $pokemon_repository): Response
+    public function index(): Response
     {
-        $pokemon = $pokemon_repository
+
+        $pokemon = Pokemon::query()
             ->withRelations()
             ->select(['id', 'name', 'stats', 'order', 'base_experience', 'height', 'weight'])
             ->orderBy('order')
@@ -20,14 +20,14 @@ class PokemonController extends Controller
 
         return Inertia::render('Home', [
             'pokemon' => $pokemon,
-            'pokemon_count' => $pokemon_repository->count(),
+            'pokemon_count' => Pokemon::count(),
             'stats' => PokemonStats::labels(),
         ]);
     }
 
-    public function show(PokemonRepository $pokemon_repository, Pokemon $pokemon): Response
+    public function show(Pokemon $pokemon): Response
     {
-        $related = $pokemon_repository
+        $related = Pokemon::query()
             ->withRelations()
             ->select(['id', 'name', 'stats', 'order', 'base_experience', 'height', 'weight'])
             ->limit(5)
@@ -35,15 +35,15 @@ class PokemonController extends Controller
             ->get();
 
         return Inertia::render('Pokemon/Show', [
-            'pokemon' => $pokemon_repository->eagerLoaded($pokemon),
+            'pokemon' => $pokemon->eagerLoaded(),
             'related' => $related,
         ]);
     }
 
-    public function edit(PokemonRepository $pokemon_repository, Pokemon $pokemon): Response
+    public function edit(Pokemon $pokemon): Response
     {
         return Inertia::render('Pokemon/Edit', [
-            'pokemon' => $pokemon_repository->eagerLoaded($pokemon),
+            'pokemon' => $pokemon->eagerLoaded(),
         ]);
     }
 }

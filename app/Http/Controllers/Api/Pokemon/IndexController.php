@@ -5,17 +5,18 @@ namespace App\Http\Controllers\Api\Pokemon;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Pokemon\IndexRequest;
 use App\Http\Resources\PokemonResource;
-use App\Repositories\PokemonRepository;
+use App\Models\Pokemon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class IndexController extends Controller
 {
-    public function __invoke(IndexRequest $request, PokemonRepository $query): AnonymousResourceCollection
+    public function __invoke(IndexRequest $request): AnonymousResourceCollection
     {
         $validated = $request->safe();
 
-        $pokemon_query = $query->withRelations()
+        $pokemon_query = Pokemon::query()
+            ->withRelations()
             ->select(['id', 'name', 'stats', 'order', 'base_experience', 'height', 'weight']);
 
         if ($validated->has('s')) {
