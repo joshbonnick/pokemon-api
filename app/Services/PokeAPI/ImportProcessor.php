@@ -55,7 +55,7 @@ class ImportProcessor
     protected function stats(array $stats): Collection
     {
         return collect($stats)->mapWithKeys(fn (array $stat) => [
-            data_get($stat, 'stat.name') => $stat['base_stat'],
+            str(data_get($stat, 'stat.name'))->replace('-', '_')->toString() => $stat['base_stat'],
         ]);
     }
 
