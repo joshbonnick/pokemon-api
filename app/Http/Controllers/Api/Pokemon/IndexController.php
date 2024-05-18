@@ -37,7 +37,7 @@ class IndexController extends Controller
             $pokemon_query->limit($validated->input('limit'));
         }
 
-        if ($validated->has('offset')) {
+        if ($validated->has(['offset', 'limit'])) {
             $pokemon_query->offset($validated->input('offset'));
         }
 

@@ -11,6 +11,17 @@ const props = defineProps({ pokemon: Object, related: Array })
 const name = props.pokemon.name.charAt(0).toUpperCase() + props.pokemon.name.slice(1)
 
 const cry = ref(null)
+
+const deletePokemon = () => {
+    if (!window.confirm('Are you sure?')) {
+        return
+    }
+    axios.post(`/api/v1/pokemon/${props.pokemon.id}`, { _method: 'delete' }).then((r) => {
+        if (r.status === 200) {
+            window.location = '/'
+        }
+    })
+}
 </script>
 
 <template>
@@ -22,6 +33,9 @@ const cry = ref(null)
             <Link :href="`/pokemon/${pokemon.id}/edit`" class="w-full lg:w-auto call-to-action mt-4 lg:ml-4">
                 <i class="fa-solid fa-pencil"></i> Edit {{ pokemon.name }}
             </Link>
+            <a href="javascript:void(0)" @click="deletePokemon" class="w-full lg:w-auto call-to-action mt-4 lg:ml-4">
+                <i class="fa-solid fa-trash"></i> Delete {{ pokemon.name }}
+            </a>
             <audio :src="pokemon.cry" class="hidden" ref="cry"></audio>
 
             <article class="pt-12 lg:pt-18">
