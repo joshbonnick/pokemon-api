@@ -10,13 +10,13 @@ return new class extends Migration
     {
         Schema::create('pokemon', function (Blueprint $table) {
             $table->id();
-            $table->integer('pokeapi_id');
+            $table->integer('pokeapi_id')->index();
             $table->integer('base_experience');
-            $table->string('name');
+            $table->string('name')->index();
             $table->integer('height');
             $table->boolean('is_default');
             $table->json('stats');
-            $table->integer('order');
+            $table->integer('order')->index();
             $table->integer('weight');
             $table->string('cry');
             $table->timestamps();
