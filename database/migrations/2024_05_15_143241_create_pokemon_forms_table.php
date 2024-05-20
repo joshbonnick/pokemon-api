@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('pokemon_forms', function (Blueprint $table) {
             $table->id();
-            $table->integer('pokeapi_id');
+            $table->integer('pokeapi_id')->index();
             $table->string('name');
-            $table->integer('order');
-            $table->integer('form_order');
+            $table->integer('order')->index();
+            $table->integer('form_order')->index();
             $table->boolean('is_battle_only');
             $table->boolean('is_default');
             $table->boolean('is_mega');
